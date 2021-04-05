@@ -13,14 +13,13 @@ endif()
 find_package(cpr CONFIG REQUIRED)
 target_link_libraries(bup PRIVATE cpr)
 
-find_path(CPP_BASE64_INCLUDE_DIRS "cpp-base64/base64.cpp")
-target_sources(bup PRIVATE ${CPP_BASE64_INCLUDE_DIRS}/cpp-base64/base64.cpp) 
-target_include_directories(bup PRIVATE ${CPP_BASE64_INCLUDE_DIRS})
+set(VCPKG_INSTALLED_TRIPLET_DIR ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}) 
+
+target_sources(bup PRIVATE ${VCPKG_INSTALLED_TRIPLET_DIR}/include/cpp-base64/base64.cpp) 
+target_include_directories(bup PRIVATE ${VCPKG_INSTALLED_TRIPLET_DIR}/include)
 
 find_package(k1ee CONFIG REQUIRED)
 target_link_libraries(bup PRIVATE k1ee)    
- 
-set(VCPKG_INSTALLED_TRIPLET_DIR ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}) 
  
 target_include_directories(bup PRIVATE "${VCPKG_INSTALLED_TRIPLET_DIR}/include")
 if(DEBUG)
