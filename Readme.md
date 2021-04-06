@@ -18,8 +18,7 @@ CMake工程，做插件使用可以用vcpkg registries功能进行安装，vcpkg
         }
     ]
 }
-```
-注意，需要手动把`vcpkg_installed\x64-windows\tools\bup`中的bsign.exe复制到程序目录
+``` 
 
 ### 例子
 
