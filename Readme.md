@@ -2,10 +2,12 @@
 
 自动化B站投稿
 
-### Usage
-使用vcpkg registries功能进行安装
+### 安装
 
-不会用请看：https://www.anquanke.com/post/id/234093
+CMake工程，做插件使用可以用vcpkg registries功能进行安装，vcpkg不会用请看：https://www.anquanke.com/post/id/234093
+
+在VS工程启用vcpkg，并且在工程目录添加vcpkg-configuration.json文件如下内容，然后编译工程即可自动进行解析安装
+
 ```json
 {
     "registries": [
@@ -17,23 +19,25 @@
     ]
 }
 ```
-### Example
+注意，需要手动把`vcpkg_installed\x64-windows\tools\bup`中的bsign.exe复制到程序目录
+
+### 例子
+
 ```c++
 #include <cassert>
-#include <bup/bup.h>
-#include <k1ee/encoding.h>
+#include <bup/bup.h> 
 #include <Windows.h>
 
 int main()
 {
+    //UTF8
     SetConsoleCP(65001);
     SetConsoleOutputCP(65001);
     
     bup::BUpload uploader(你的UID, 用Proxifier和抓包抓B站投稿客户端的AccessToken);
-    auto cover = uploader.uploadCover(R"(D:\Work\LivestreamExtract\final\slice_cover.jpg)");
+    auto cover = uploader.uploadCover(R"(Path to Cover)");
     
-    auto video1 = uploader.uploadVideo(
-    R"(D:\Work\LivestreamExtract\final\output_slice\1616743747978\6622-6620 (1616744500378).flv)");
+    auto video1 = uploader.uploadVideo(R"(Path to Video 1)");
     
     bup::Upload upload;
     upload.title = "[BUpload]分P测试上传";
@@ -45,8 +49,7 @@ int main()
     
     auto result = uploader.upload(upload);
     
-    auto video2 = uploader.uploadVideo(
-    R"(D:\Work\LivestreamExtract\final\output_slice\1616743747978\6623-6622 (1616744388474).flv)");
+    auto video2 = uploader.uploadVideo(R"(Path to Video 2)");
     upload.videos.push_back(video2);
     
     result = uploader.edit(result.av, upload);

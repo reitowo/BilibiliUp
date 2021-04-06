@@ -16,10 +16,10 @@ include(GNUInstallDirs)
 add_subdirectory(src)
 add_subdirectory(include)
 
-if(BUILD_K1EE_TESTS)
+if(BUILD_BUP_TESTS)
     enable_testing()
     add_subdirectory(test)
 endif()
 
-install(FILES ${CMAKE_CURRENT_LIST_DIR}/bsign/bsign.exe
-        DESTINATION tools/bup)
+# 似乎不需要签名
+# install(FILES ${CMAKE_CURRENT_LIST_DIR}/bsign/bsign.exe DESTINATION tools/bup)

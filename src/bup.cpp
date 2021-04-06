@@ -167,7 +167,7 @@ std::shared_ptr<bup::Cover> bup::BUpload::uploadCover(const std::filesystem::pat
     auto data = k1ee::read_all_bytes(path);
 
     cpr::Parameters param{{"access_key", access_key}};
-    param.AddParameter(cpr::Parameter{"sign", signString(param.content)}, cpr::CurlHolder());
+    //param.AddParameter(cpr::Parameter{"sign", signString(param.content)}, cpr::CurlHolder());
 
     auto resp = cpr::Post(
             cpr::Url("https://member.bilibili.com/x/vu/client/cover/up"),
@@ -233,7 +233,7 @@ bup::UploadResult bup::BUpload::upload(const Upload &info) {
     auto postJson = j.dump();
 
     cpr::Parameters param{{"access_key", access_key}};
-    param.AddParameter(cpr::Parameter{"sign", signString(param.content)}, cpr::CurlHolder());
+    //param.AddParameter(cpr::Parameter{"sign", signString(param.content)}, cpr::CurlHolder());
 
     auto resp = cpr::Post(
             cpr::Url("https://member.bilibili.com/x/vu/client/add"),
@@ -299,7 +299,7 @@ bup::UploadResult bup::BUpload::edit(uint64_t av, const Upload &info) {
     auto postJson = j.dump();
 
     cpr::Parameters param{{"access_key", access_key}};
-    param.AddParameter(cpr::Parameter{"sign", signString(param.content)}, cpr::CurlHolder());
+    //param.AddParameter(cpr::Parameter{"sign", signString(param.content)}, cpr::CurlHolder());
 
     auto resp = cpr::Post(
             cpr::Url("https://member.bilibili.com/x/vu/client/edit"),
@@ -339,7 +339,7 @@ bool bup::BUpload::isPassedReview(uint64_t av) {
             {"aid",        std::to_string(av)},
             {"build",      std::to_string(UGC_BUILD)}
     };
-    param.AddParameter(cpr::Parameter{"sign", signString(param.content)}, cpr::CurlHolder());
+    //param.AddParameter(cpr::Parameter{"sign", signString(param.content)}, cpr::CurlHolder());
 
     auto resp = cpr::Get(
             cpr::Url("http://member.bilibili.com/x/client/archive/view"),

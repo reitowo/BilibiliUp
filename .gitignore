@@ -2,3 +2,4 @@
 out/
 cmake-build*/
 bsign/cmake-build*/
+bsign/

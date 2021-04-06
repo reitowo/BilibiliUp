@@ -8,12 +8,15 @@ int main()
 {
 	SetConsoleCP(65001);
 	SetConsoleOutputCP(65001);
+
+	std::string workingFolder = "D:/Work/LivestreamExtract/final";
+	bup::BUpload uploader(std::atol(k1ee::read_all_texts( workingFolder + "/bili-uid.txt").c_str()),
+		k1ee::read_all_texts( workingFolder + "/bili-accesstoken.txt"));
 	
-	bup::BUpload uploader(0, "your access token");
 	auto cover = uploader.uploadCover(R"(D:\Work\LivestreamExtract\final\slice_cover.jpg)");
 	
 	auto video1 = uploader.uploadVideo(
-		R"(D:\Work\LivestreamExtract\final\output_slice\1616743747978\6622-6620 (1616744500378).flv)");
+		R"(D:\ObsOutput\2021-02-23 19-41-58.flv)");
 
 	bup::Upload upload;
 	upload.title = "[BUpload]分P测试上传";
@@ -26,7 +29,7 @@ int main()
 	auto result = uploader.upload(upload);
 	
 	auto video2 = uploader.uploadVideo(
-		R"(D:\Work\LivestreamExtract\final\output_slice\1616743747978\6623-6622 (1616744388474).flv)");
+		R"(D:\ObsOutput\2021-03-06 15-30-07.flv)");
 	upload.videos.push_back(video2);
 	
 	result = uploader.edit(result.av, upload);
