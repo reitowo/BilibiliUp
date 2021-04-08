@@ -25,6 +25,11 @@ static std::string signString(const std::string &str) {
     return ret;
 }
 
+static std::string fromU8String(std::u8string u8str)
+{
+	return std::string(reinterpret_cast<const char*>(u8str.c_str()), u8str.size());
+}
+
 bup::BUpload::BUpload(uint64_t mid, const std::string &access_token) : mid(mid), access_key(access_token) {
 }
 
@@ -33,8 +38,8 @@ std::shared_ptr<bup::Video> bup::BUpload::uploadVideo(const std::filesystem::pat
         return nullptr;
 
     size_t file_size = std::filesystem::file_size(path);
-    auto file_name = path.filename().string();
-
+    auto file_name = fromU8String(path.filename().u8string());
+	
     std::cout << "上传视频 " << path.string() << std::endl;
 
     //member.bilibili.com/preupload
@@ -133,7 +138,7 @@ std::shared_ptr<bup::Video> bup::BUpload::uploadVideo(const std::filesystem::pat
                     {"filesize", std::to_string(file_size)},
                     {"md5",      file_md5},
                     {"version", UGC_VERSION},
-                    {"name",     file_name}
+                    {"name",     file_name.c_str()}
             },
             cpr::Header{
                     {"Accept-Encoding", "gzip, deflate"},
