@@ -11,6 +11,9 @@
 #include <filesystem>
 #include <cpr/cpr.h>
 
+//No longer go through Fiddler, fork this repo, create your own vcpkg registry and comment the line below if you want.
+#undef USE_FIDDLER_PROXY
+
 #ifdef USE_FIDDLER_PROXY
 #define CPR_FIDDLER_PROXY\
 	,\
